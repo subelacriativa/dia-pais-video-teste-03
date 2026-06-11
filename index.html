@@ -119,6 +119,11 @@
             z-index: 10000;
         }
 
+        #menu-fim-video h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
         /* TELA FINAL DE COMPARTILHAMENTO (TELA 3) */
         #tela-final {
             background: white;
@@ -130,6 +135,20 @@
             text-align: center;
             display: none;
             animation: surgir 0.5s ease-out;
+        }
+
+        #tela-final span.emoji-presente {
+            font-size: 3rem;
+        }
+
+        #tela-final h1 {
+            margin-top: 10px;
+        }
+
+        #tela-final p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .lista-botoes {
@@ -157,9 +176,9 @@
         }
 
         .btn-opcao:active { transform: scale(0.98); }
+        .btn-opcao.baixar { background: #3b82f6; color: white; border: none; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
         .btn-opcao.whatsapp { background: #25D366; color: white; border: none; }
         .btn-opcao.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; border: none; }
-        .btn-opcao.baixar { background: #3b82f6; color: white; border: none; }
 
         @keyframes surgir {
             from { opacity: 0; transform: translateY(20px); }
@@ -193,29 +212,29 @@
         <video id="video-principal" src="https://raw.githubusercontent.com/subelacriativa/ra/main/20260524_083410.mp4" crossorigin="anonymous" playsinline webkit-playsinline></video>
         
         <div id="menu-fim-video">
-            <h2 style="color: white; margin-bottom: 10px;">O que deseja fazer agora?</h2>
+            <h2>O que deseja fazer agora?</h2>
             <button class="btn-principal" id="btn-repetir" style="background: #3b82f6; box-shadow: none; max-width: 280px;">🔄 Assistir Novamente</button>
             <button class="btn-principal" id="btn-voltar" style="background: #ef4444; box-shadow: none; max-width: 280px;">🚪 Voltar</button>
         </div>
     </div>
 
     <div id="tela-final">
-        <span style="font-size: 3rem;">🎁</span>
-        <h1 style="margin-top: 10px;">Gostou da Surpresa?</h1>
-        <p style="color: #64748b;">Guarde ou compartilhe essa linda recordação!</p>
+        <span class="emoji-presente">🎁</span>
+        <h1>Gostou da Surpresa?</h1>
+        <p>Siga os passos abaixo para enviar o <b>arquivo do vídeo</b> para a família sem precisar de links suspeitos!</p>
         
         <div class="lista-botoes">
-            <a href="https://api.whatsapp.com/send?text=Olha%20a%20surpresa%20linda%20que%20ganhei%20de%20Dia%20dos%20Pais!%20❤️%20https://subelacriativa.github.io/ra/" target="_blank" class="btn-opcao whatsapp">
-                <span>💬</span> Compartilhar no WhatsApp
+            <a href="https://raw.githubusercontent.com/subelacriativa/ra/main/20260524_083410.mp4" download="Surpresa_SBC.mp4" target="_blank" class="btn-opcao baixar">
+                <span>📥</span> 1º PASSO: Baixar o Vídeo na Galeria
             </a>
+            
+            <button id="btn-whatsapp-seguro" class="btn-opcao whatsapp">
+                <span>💬</span> 2º PASSO: Enviar no WhatsApp
+            </button>
             
             <button id="btn-instagram" class="btn-opcao instagram">
                 <span>📸</span> Compartilhar no Instagram
             </button>
-            
-            <a href="https://raw.githubusercontent.com/subelacriativa/ra/main/20260524_083410.mp4" download="Surpresa_SBC.mp4" target="_blank" class="btn-opcao baixar">
-                <span>📥</span> Baixar Vídeo de Recordação
-            </a>
 
             <button class="btn-opcao" id="btn-recomecar-tudo" style="margin-top: 15px; font-size: 0.9rem;">
                 ↩️ Voltar para a Mensagem Inicial
@@ -237,8 +256,10 @@
         const btnVoltar = document.getElementById('btn-voltar');
         const btnRecomecarTudo = document.getElementById('btn-recomecar-tudo');
         const btnInstagram = document.getElementById('btn-instagram');
+        const btnWhatsappSeguro = document.getElementById('btn-whatsapp-seguro');
 
-        const textoParaCopiar = "@subelacriativa #diadospais";
+        const legendaInstagram = "@subelacriativa #diadospais";
+        const textoWhatsapp = "Olha a surpresa em vídeo emocionante que ganhei de Dia dos Pais! ❤️";
 
         // Fluxo de telas
         btnAbrirVideo.addEventListener('click', function() {
@@ -268,27 +289,36 @@
             telaInicial.style.display = 'block';
         });
 
-        // SOLUÇÃO DO INSTAGRAM (Proteção contra navegadores sem App)
+        // NOVO FLUXO DO WHATSAPP SEGURO
+        btnWhatsappSeguro.addEventListener('click', function() {
+            navigator.clipboard.writeText(textoWhatsapp).then(() => {
+                alert("✨ Texto copiado com sucesso!\n\nO WhatsApp vai abrir agora. Escolha para quem quer enviar, anexe o vídeo que você baixou no 1º Passo e cole a linda legenda que preparamos para você!");
+                
+                // Abre o WhatsApp limpo para o usuário escolher o contato e anexar o arquivo local
+                window.open("https://api.whatsapp.com/send", "_blank");
+            }).catch(err => {
+                console.error("Erro ao copiar texto: ", err);
+                // Caso o navegador bloqueie a cópia, apenas abre o WhatsApp
+                window.open("https://api.whatsapp.com/send", "_blank");
+            });
+        });
+
+        // SOLUÇÃO DO INSTAGRAM
         btnInstagram.addEventListener('click', function() {
-            // Copia o @ da loja
-            const inputInvisivel = document.createElement('textarea');
-            inputInvisivel.value = textoParaCopiar;
-            document.body.appendChild(inputInvisivel);
-            inputInvisivel.select();
-            document.execCommand('copy');
-            document.body.removeChild(inputInvisivel);
+            navigator.clipboard.writeText(legendaInstagram).then(() => {
+                alert("✨ O @ da loja foi copiado!\n\nSe você tiver o app do Instagram, ele abrirá direto nos Stories. Caso use pelo navegador, basta abrir o site do Instagram, ir em criar Story, selecionar o vídeo baixado e colar a marcação!");
+                
+                const tempoInicial = Date.now();
+                window.location.href = "instagram://story-camera";
 
-            alert("✨ O @ da loja foi copiado!\n\nSe você tiver o app do Instagram, ele abrirá direto nos Stories. Caso use pelo navegador, basta abrir o site do Instagram, ir em criar Story, selecionar o vídeo baixado e colar a marcação!");
-
-            // Tenta abrir o App. Se falhar após 1.5 segundos, joga para o site móvel
-            const tempoInicial = Date.now();
-            window.location.href = "instagram://story-camera";
-
-            setTimeout(function() {
-                if (Date.now() - tempoInicial < 2000) {
-                    window.open("https://instagram.com", "_blank");
-                }
-            }, 1500);
+                setTimeout(function() {
+                    if (Date.now() - tempoInicial < 2000) {
+                        window.open("https://instagram.com", "_blank");
+                    }
+                }, 1500);
+            }).catch(err => {
+                window.open("https://instagram.com", "_blank");
+            });
         });
     </script>
 </body>
