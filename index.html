@@ -13,18 +13,21 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Variáveis CSS para fácil manutenção das cores */
         :root {
-            --cor-principal: #ff5e62;
-            --cor-secundaria: #ff9966;
-            --cor-texto: #4a5568;
-            --cor-titulo: #2c3e50;
+            --cor-principal: #ff6b6b;
+            --cor-secundaria: #ffa07a;
+            --cor-gradiente: linear-gradient(135deg, #ff926b 0%, #ff5e62 100%);
+            --cor-texto: #334155;
+            --cor-subtexto: #64748b;
+            --cor-titulo: #0f172a;
+            --background-card: rgba(255, 255, 255, 0.85);
+            --radius-premium: 24px;
+            --transicao-suave: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Reset moderno e inteligente */
         html {
             box-sizing: border-box;
         }
@@ -35,145 +38,159 @@
         }
 
         body {
-            font-family: 'Comic Neue', 'Segoe UI', Roboto, Handlee, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: url('IMG-20260712-WA0050.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 24px;
             overflow: hidden;
+            color: var(--cor-texto);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Uso de Section/Main no lugar de divs genéricas */
+        /* Cartão Glassmorphism Moderno */
         .cartao-surpresa {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            padding: 35px 25px;
+            background: var(--background-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-premium);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            padding: 40px 32px;
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             text-align: center;
-            animation: surgir 0.8s ease-out;
+            animation: surgir 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .icone-coracao {
-            font-size: 3.5rem;
-            color: var(--cor-principal);
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: pulsar 1.5s infinite;
+        .icone-principal {
+            margin-bottom: 20px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .icone-principal svg {
+            width: 54px;
+            height: 54px;
+            fill: none;
+            stroke: var(--cor-principal);
+            stroke-width: 1.5;
+            animation: pulsar 2s infinite ease-in-out;
         }
 
         h1 {
             color: var(--cor-titulo);
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.75rem;
             font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            line-height: 1.25;
         }
 
         .mensagem {
             color: var(--cor-texto);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-            background: rgba(249, 251, 252, 0.8);
-            padding: 20px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 24px;
             border-radius: 16px;
-            border-left: 4px solid var(--cor-principal);
+            border-left: 3px solid var(--cor-principal);
+            text-align: left;
         }
 
         .desafio-texto {
             color: #e11d48;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+            letter-spacing: -0.1px;
         }
 
+        /* Botões Clean e Flat */
         .btn-principal {
-            background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-principal));
+            background: var(--cor-gradiente);
             color: white;
             border: none;
             padding: 16px 32px;
-            font-family: 'Comic Neue', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 14px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 6px 20px rgba(255, 94, 98, 0.4);
+            box-shadow: 0 10px 25px rgba(255, 94, 98, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s;
+            gap: 12px;
+            transition: var(--transicao-suave);
         }
 
-        .btn-principal:active { transform: scale(0.98); }
+        .btn-principal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(255, 94, 98, 0.35);
+        }
 
+        .btn-principal:active { 
+            transform: translateY(0); 
+        }
+
+        /* Grid do Jogo Renovado */
         #tela-jogo {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            padding: 35px 25px;
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
             display: none;
-            animation: surgir 0.5s ease-out;
         }
 
         #instrucoes-jogo {
-            color: #475569;
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            color: var(--cor-subtexto);
+            margin-bottom: 32px;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .painel-genius {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 260px;
-            height: 260px;
-            margin: 0 auto 25px auto;
+            gap: 16px;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 32px auto;
         }
 
         .botao-cor {
             border: none;
-            border-radius: 20px;
+            border-radius: 18px;
             cursor: pointer;
-            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-            transition: transform 0.1s, filter 0.1s;
-            opacity: 0.6;
+            transition: var(--transicao-suave);
+            opacity: 0.4;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
         }
 
-        .botao-cor:active {
-            transform: scale(0.95);
-        }
-
-        .verde { background-color: #22c55e; border-bottom: 6px solid #15803d; }
-        .vermelho { background-color: #ef4444; border-bottom: 6px solid #b91c1c; }
-        .azul { background-color: #3b82f6; border-bottom: 6px solid #1d4ed8; }
-        .amarelo { background-color: #eab308; border-bottom: 6px solid #a16207; }
+        .verde { background-color: #10b981; }
+        .vermelho { background-color: #f43f5e; }
+        .azul { background-color: #3b82f6; }
+        .amarelo { background-color: #eab308; }
 
         .aceso {
             opacity: 1 !important;
-            filter: brightness(1.3) drop-shadow(0 0 15px currentColor);
-            transform: scale(1.02);
+            transform: scale(1.04);
+            box-shadow: 0 0 24px currentColor;
         }
 
+        /* Fogos Soft */
         #efeito-fogos {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(15, 23, 42, 0.95);
             z-index: 10005;
             display: none;
             justify-content: center;
@@ -187,9 +204,10 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            animation: explodir 1s ease-out forwards;
+            animation: explodir 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
 
+        /* Player Minimalista */
         #container-player {
             position: fixed;
             top: 0;
@@ -210,59 +228,55 @@
             object-fit: contain;
         }
 
-        /* Correção: Removido o caractere 'LF' que quebrava o CSS */
         #menu-fim-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 20px;
+            gap: 16px;
+            padding: 24px;
             z-index: 10000;
         }
 
         #menu-fim-video h2 {
             color: white;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
         }
 
+        /* Tela Final Organizada */
         #tela-final {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            padding: 35px 25px;
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
             display: none;
-            animation: surgir 0.5s ease-out;
         }
 
-        #tela-final span.emoji-presente { font-size: 3.5rem; }
-        #tela-final h1 { margin-top: 10px; }
-        #tela-final p { color: #64748b; font-size: 1.05rem; line-height: 1.4; margin-bottom: 5px; }
+        #tela-final p { 
+            color: var(--cor-subtexto); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            margin-bottom: 24px; 
+        }
 
         .lista-botoes {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 25px;
         }
 
         .btn-opcao {
-            background: #f1f5f9;
-            color: #334155;
-            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--cor-texto);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             padding: 14px 20px;
-            font-family: 'Comic Neue', sans-serif;
-            font-size: 1.1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
@@ -270,82 +284,106 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.2s;
+            transition: var(--transicao-suave);
             text-decoration: none;
         }
 
-        .btn-opcao:active { transform: scale(0.98); }
-        .btn-opcao.whatsapp { background: #25D366; color: white; border: none; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); }
-        .btn-opcao.baixar { background: #3b82f6; color: white; border: none; }
-
-        @keyframes surgir {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-opcao:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
         }
 
-        @keyframes pulsar {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .btn-opcao.whatsapp { 
+            background: #25D366; 
+            color: white; 
+            border: none; 
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2); 
         }
-
-        @keyframes explodir {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        .btn-opcao.whatsapp:hover { background: #22c35e; box-shadow: 0 12px 24px rgba(37, 211, 102, 0.3); }
+        
+        .btn-opcao.baixar { 
+            background: #2563eb; 
+            color: white; 
+            border: none; 
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
         }
+        .btn-opcao.baixar:hover { background: #1d4ed8; box-shadow: 0 12px 24px rgba(37, 99, 235, 0.3); }
 
+        /* Rodapé Elegante */
         footer { 
-            margin-top: 25px; 
+            margin-top: 32px; 
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 20px;
         }
         
         .rodape-link {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             text-decoration: none;
-            transition: transform 0.2s ease;
+            transition: var(--transicao-suave);
         }
 
         .rodape-link:hover {
-            transform: scale(1.04);
+            transform: translateY(-1px);
         }
         
         footer img {
-            max-width: 110px;
+            max-width: 90px;
             height: auto;
             display: block;
         }
 
         .instagram-texto {
-            font-size: 0.8rem;
-            color: #64748b;
-            font-weight: bold;
-            letter-spacing: 0.3px;
+            font-size: 0.75rem;
+            color: var(--cor-subtexto);
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        /* Animações Modernas */
+        @keyframes surgir {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes pulsar {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+
+        @keyframes explodir {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0.3); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
     <main class="cartao-surpresa" id="tela-inicial">
-        <span class="icone-coracao">❤️</span>
+        <div class="icone-principal">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5w-2 3.78c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+        </div>
         <h1>Para o Melhor Pai!</h1>
         <div class="mensagem">
-            <strong>"Pai, cada momento ao seu lado é uma memória que guardo para sempre no coração. Obrigado por ser meu porto seguro, meu herói e meu melhor amigo. Preparei uma surpresa em vídeo para você lembrar o quanto te amo!"</strong>
+            Pai, cada momento ao seu lado é uma memória que guardo para sempre no coração. Obrigado por ser meu porto seguro, meu herói e meu melhor amigo. Preparei uma surpresa em vídeo para você lembrar o quanto te amo!
         </div>
         <p class="desafio-texto">Ah, mas para ver minha homenagem não vai ser tão fácil assim... 😉</p>
         <button class="btn-principal" id="btn-ir-jogo">
-            <span>🎮</span> CLIQUE AQUI
+            COMEÇAR SURPRESA
         </button>
         
         <footer>
             <a href="https://www.instagram.com/subelacriativa/" target="_blank" class="rodape-link">
                 <img src="logo_sbc.png" alt="Su Bela Criativa" loading="lazy">
-                <span class="instagram-texto">📸 Conheça a Su Bela Criativa no Instagram</span>
+                <span class="instagram-texto">Criado por Su Bela Criativa</span>
             </a>
         </footer>
     </main>
@@ -364,15 +402,15 @@
         <footer>
             <a href="https://www.instagram.com/subelacriativa/" target="_blank" class="rodape-link">
                 <img src="logo_sbc.png" alt="Su Bela Criativa" loading="lazy">
-                <span class="instagram-texto">📸 Conheça a Su Bela Criativa no Instagram</span>
+                <span class="instagram-texto">Criado por Su Bela Criativa</span>
             </a>
         </footer>
     </section>
 
     <div id="efeito-fogos">
         <div style="text-align: center;">
-            <p style="font-size: 3rem; font-weight: bold;">🎉 PARABÉNS! 🎉</p>
-            <p style="font-size: 1.3rem; margin-top: 10px; font-weight: normal;">Abrindo sua homenagem...</p>
+            <p style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1px;">🎉 PARABÉNS!</p>
+            <p style="font-size: 1.1rem; margin-top: 12px; color: rgba(255,255,255,0.8); font-weight: 400;">Abrindo sua homenagem...</p>
         </div>
     </div>
 
@@ -381,40 +419,43 @@
         
         <div id="menu-fim-video">
             <h2>O que deseja fazer agora?</h2>
-            <button class="btn-principal" id="btn-repetir" style="background: #3b82f6; box-shadow: none; max-width: 280px;">🔄 Assistir Novamente</button>
-            <button class="btn-principal" id="btn-voltar" style="background: #ef4444; box-shadow: none; max-width: 280px;">🚪 Voltar</button>
+            <button class="btn-principal" id="btn-repetir" style="background: #2563eb; box-shadow: none; max-width: 280px;">🔄 Assistir Novamente</button>
+            <button class="btn-principal" id="btn-voltar" style="background: #f43f5e; box-shadow: none; max-width: 280px;">🚪 Continuar</button>
         </div>
     </div>
 
     <section id="tela-final" class="cartao-surpresa">
-        <span class="emoji-presente">🎁</span>
+        <div class="icone-principal" style="color: #eab308;">
+             <svg viewBox="0 0 24 24" style="stroke: #eab308;">
+                 <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-1c0-.55.45-1 1-1zm-6 0c.55 0 1 .45 1 1v1H9c-.55 0-1-.45-1-1s.45-1 1-1z"/>
+             </svg>
+        </div>
         <h1>Gostou da Surpresa?</h1>
-        <p>Guarde essa recordação ou envie direto para quem você ama!</p>
+        <p>Guarde essa linda recordação ou envie direto para quem você mais ama no WhatsApp!</p>
         
         <div class="lista-botoes">
             <a href="https://api.whatsapp.com/send?text=Olha%20a%20surpresa%20linda%20que%20ganhei%20de%20Dia%20dos%20Pais!%20%E2%9D%A4%EF%B8%8F%20https://subelacriativa.github.io/dia-pais-video-teste/" target="_blank" class="btn-opcao whatsapp">
-                <span>💬</span> Compartilhar no WhatsApp
+                Compartilhar no WhatsApp
             </a>
             
-            <a href="VERTICAL_VIDEO_9_16__765d046f-3ab4-4015-8863-ed3026ca3ca2.mp4" download="VERTICAL_VIDEO_9_16__765d046f-3ab4-4015-8863-ed3026ca3ca2.mp4" target="_blank" class="btn-opcao baixar">
-                <span>📥</span> Salvar Vídeo na Galeria
+            <a href="20260524_083410.mp4" download="Surpresa_SBC.mp4" target="_blank" class="btn-opcao baixar">
+                Salvar Vídeo na Galeria
             </a>
 
-            <button class="btn-opcao" id="btn-recomecar-tudo" style="margin-top: 15px; font-size: 0.9rem;">
-                ↩️ Voltar para a Mensagem Inicial
+            <button class="btn-opcao" id="btn-recomecar-tudo" style="margin-top: 16px; font-size: 0.85rem; border: none; background: transparent; color: var(--cor-subtexto);">
+                ↩️ Voltar para o início
             </button>
         </div>
         
         <footer>
             <a href="https://www.instagram.com/subelacriativa/" target="_blank" class="rodape-link">
                 <img src="logo_sbc.png" alt="Su Bela Criativa" loading="lazy">
-                <span class="instagram-texto">📸 Conheça a Su Bela Criativa no Instagram</span>
+                <span class="instagram-texto">Criado por Su Bela Criativa</span>
             </a>
         </footer>
     </section>
 
     <script>
-        // Seleção de elementos das telas
         const telaInicial = document.getElementById('tela-inicial');
         const telaJogo = document.getElementById('tela-jogo');
         const efeitoFogos = document.getElementById('efeito-fogos');
@@ -424,13 +465,11 @@
         const textoInstrucoes = document.getElementById('instrucoes-jogo');
         const video = document.getElementById('video-principal');
         
-        // Seleção de botões de controle
         const btnIrJogo = document.getElementById('btn-ir-jogo');
         const btnRepetir = document.getElementById('btn-repetir');
         const btnVoltar = document.getElementById('btn-voltar');
         const btnRecomecarTudo = document.getElementById('btn-recomecar-tudo');
 
-        // Lógica do Jogo Genius
         const sequenciaJogo = [0, 2, 1]; 
         let passosUsuario = [];
         let podeClicar = false;
@@ -460,7 +499,7 @@
                     setTimeout(() => {
                         podeClicar = true;
                         textoInstrucoes.innerText = "👉 Sua vez! Repita a ordem:";
-                        textoInstrucoes.style.color = "#22c55e";
+                        textoInstrucoes.style.color = "#10b981";
                     }, 600);
                 }
             }, 900);
@@ -472,11 +511,11 @@
             acenderBotao(idCor);
             passosUsuario.push(idCor);
 
-            const passoAtual = passosUsuario.length - 1;
+            const passoAtual = pasosUsuario.length - 1;
             if (passosUsuario[passoAtual] !== sequenciaJogo[passoAtual]) {
                 podeClicar = false;
                 textoInstrucoes.innerText = "❌ Ops! Ordem errada. Tente de novo!";
-                textoInstrucoes.style.color = "#ef4444";
+                textoInstrucoes.style.color = "#f43f5e";
                 
                 setTimeout(() => {
                     demonstrarSequencia();
@@ -513,13 +552,13 @@
                 setTimeout(() => {
                     efeitoFogos.style.display = 'none';
                     containerPlayer.style.display = 'flex';
-                    video.play().catch(err => console.log("Aviso de auto-play bloqueado ajustado automaticamente.", err));
+                    video.play().catch(err => console.log("Aviso de auto-play ajustado.", err));
                 }, 3200);
             }, 600);
         }
 
         function criarFogos() {
-            const cores = ['#ff5e62', '#ff9966', '#25D366', '#3b82f6', '#facc15', '#a855f7'];
+            const cores = ['#ff5e62', '#ff9966', '#10b981', '#3b82f6', '#eab308', '#a855f7'];
             const container = document.getElementById('efeito-fogos');
             if(!container) return;
             
@@ -533,21 +572,17 @@
                 fogo.style.left = '50%';
                 fogo.style.top = '50%';
                 
-                // Variáveis transformadas em constantes (Performance)
                 const angulo = Math.random() * Math.PI * 2;
                 const distancia = 70 + Math.random() * 140;
                 
                 fogo.style.setProperty('--x', `${Math.cos(angulo) * distancia}px`);
                 fogo.style.setProperty('--y', `${Math.sin(angulo) * distancia}px`);
                 
-                // Otimização de Memória: Remove a div da árvore DOM assim que a animação acaba
                 fogo.addEventListener('animationend', () => fogo.remove());
-                
                 container.appendChild(fogo);
             }
         }
 
-        // Fluxo de Telas
         if (btnIrJogo) {
             btnIrJogo.addEventListener('click', function() {
                 telaInicial.style.display = 'none';
